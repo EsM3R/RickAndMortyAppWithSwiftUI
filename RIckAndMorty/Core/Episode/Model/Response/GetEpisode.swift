@@ -8,8 +8,9 @@
 import Foundation
 
 struct GetEpisodeResponse : Codable , Hashable  {
-    let id : Int
+    let id: Int
     let name : String
     let air_date : String
-    let episode : String
+    let episode: String
+    let characters: [String]
 }

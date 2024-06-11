@@ -15,9 +15,9 @@ class EpisodeDetailViewViewModel {
     private var urlString : String
     var titleEpisode : String = ""
     var allCharacters : [String ] = []
+    
     init(urlString: String) {
         self.urlString = urlString
-        print(urlString)
         self.fetchEpisodeDetails()
     }
     

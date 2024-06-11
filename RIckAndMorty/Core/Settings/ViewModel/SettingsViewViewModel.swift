@@ -18,6 +18,8 @@ class SettingsViewViewModel {
     }
     
     func getAllSetting(){
-        SettingsOptions.allCases.forEach { settingCellsViewModel.append(SettingsCellViewModel(type: $0))}
+        SettingsOptions.allCases.forEach { settingCellsViewModel.append(SettingsCellViewModel(type: $0, onTapHandler: { option in
+            
+        }))}
     }
 }

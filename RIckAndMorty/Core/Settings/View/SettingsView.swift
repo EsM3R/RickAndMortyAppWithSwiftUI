@@ -53,7 +53,9 @@ struct SettingsCellView : View {
                 .fontWeight(.black)
                 .padding(.leading , 5)
             Spacer()
+            
         }
+        
     }
 }
 
