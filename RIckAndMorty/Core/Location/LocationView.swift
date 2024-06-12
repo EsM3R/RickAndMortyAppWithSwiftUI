@@ -13,29 +13,17 @@ struct LocationView: View {
     
     var body: some View {
         NavigationStack{
-        
-            ScrollView {
-                LazyVStack{
-                    ForEach(viewModel.locations){location in
-                        Group {
-                            let viewModel = LocationCellViewModel(location: location)
-                            NavigationLink(value: location) {
-                                LocationCellView(viewModel: viewModel)
-                            }
-                          
-                        }
-                
-                    }
-                    Text("Bottom")
-                        .onAppear{
-                            print("ill show you")
-                        }
+            Group{
+                if viewModel.locations.isEmpty {
+                    FailureScreen()
+                }else {
+                    SuccessScreen()
                 }
-           
             }
+            .padding(.horizontal , 5)
             .navigationTitle("Locations")
-            .navigationDestination(for: Location.self, destination: { location in
-                let viewModel = LocationDetailViewViewModel(urlString: location.url)
+            .navigationDestination(for: String.self, destination: { urlString in
+                let viewModel = LocationDetailViewViewModel(urlString: urlString)
                 LocationDetailView(viewModel: viewModel)
             })
             .background(Color(uiColor: UIColor.systemBackground))
@@ -79,7 +67,7 @@ extension LocationView {
     func SuccessScreen() -> some View {
         ScrollView {
             LazyVStack{
-                EpisodeCellsView()
+                LocationCellsView()
                 fetchMoreEpisodes()
             }
         }
@@ -104,7 +92,8 @@ extension LocationView {
         ForEach(viewModel.locations){ location in
             
             NavigationLink(value: location.url) {
-                LocationCellView(location)
+                let viewModel = LocationCellViewModel(location: location)
+                LocationCellView(viewModel)
             }
             .tint(Color.primary)
             
@@ -112,20 +101,20 @@ extension LocationView {
     }
     
     @ViewBuilder
-    func LocationCellView(_ location : Location) -> some View {
+    func LocationCellView(_ viewModel : LocationCellViewModel) -> some View {
         
         
         let colors : [Color] = [.blue ,.purple ,.red ,.green,.orange,.pink,.yellow ,
                 .mint]
         VStack(spacing : 20){
             Group{
-                Text(location.)
+                Text(viewModel.name)
                     .font(.title2)
                     .fontWeight(.bold)
-                Text(episode.name)
+                Text(viewModel.type)
                     .font(.title3)
                     .fontWeight(.semibold)
-                Text(episode.air_date)
+                Text(viewModel.dimension)
                     .font(.headline)
                 
             }
@@ -145,5 +134,5 @@ extension LocationView {
 }
 
 #Preview {
-    LocationView()
+    ContentView()
 }
